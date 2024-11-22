@@ -36,6 +36,7 @@ material.thickness = 1;
 material.ior = 1;
 material.transmission = 0;
 
+
 const sphereMaterial = material;
 
 const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
@@ -46,7 +47,7 @@ const sunSphere = new THREE.Mesh(sphereGeometry, sunsphereMaterial);
 
 sunsphereMaterial.map = sunTexture;
 // sunsphereMaterial.color = new THREE.Color("redOrange")
-sunsphereMaterial.transmission = 1;
+sunsphereMaterial.transmission = 0;
 sunSphere.position.x = 0;
 sphere.position.x = 1.75;
 sphere.scale.set(0.7, 0.7, 0.7);
@@ -113,11 +114,13 @@ sun.add(sunsphereMaterial, "transmission").min(0).max(1).step(0.0001);
 sun.add(sunsphereMaterial, "ior").min(1).max(10).step(0.0001);
 sun.add(sunsphereMaterial, "thickness").min(0).max(1).step(0.0001);
 
-// const ambientLight = new THREE.AmbientLight("orange",3);
+const ambientLight = new THREE.AmbientLight("0*ffffff", 3);
+scene.add(ambientLight);
 
-// scene.add(ambientLight);
+const pointLight = new THREE.PointLight("0*ffffff", 3);
+scene.add(pointLight);
 const rgbeLoader = new RGBELoader();
-rgbeLoader.load("./textures/environmentMap/roof.hdr", (environmentMap) => {
+rgbeLoader.load("./textures/environmentMap/space.hdr", (environmentMap) => {
   environmentMap.mapping = THREE.EquirectangularReflectionMapping;
 
   scene.background = environmentMap;
@@ -133,7 +136,7 @@ const tick = () => {
 
   sphere.position.x = Math.sin(elapsedTime) * 1.25;
   sphere.position.z = Math.cos(elapsedTime) * 1;
-  camera.position.x = Math.sin(elapsedTime ) * 2.25;
+  camera.position.x = Math.sin(elapsedTime) * 2.25;
   camera.position.z = -Math.cos(elapsedTime) * 2;
   controls.update();
   renderer.render(scene, camera);
