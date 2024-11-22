@@ -120,7 +120,7 @@ scene.add(ambientLight);
 const pointLight = new THREE.PointLight("0*ffffff", 3);
 scene.add(pointLight);
 const rgbeLoader = new RGBELoader();
-rgbeLoader.load("./textures/environmentMap/roof.hdr", (environmentMap) => {
+rgbeLoader.load("./textures/environmentMap/space.hdr", (environmentMap) => {
   environmentMap.mapping = THREE.EquirectangularReflectionMapping;
 
   scene.background = environmentMap;
